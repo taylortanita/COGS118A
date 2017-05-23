@@ -5,6 +5,8 @@ x = data['X']
 y = data['Y']
 y = convert_array(y)
 
+##### Q3 #####
+print('Q3: DECISION TREE')
 ### 80/20 split
 percent = 0.8
 print('For 80/20 split')
@@ -52,4 +54,30 @@ predict = clf.predict(x_test)
 testing_error = test(predict,y_test)
 print('Testing Error: '+str(testing_error)+'\n')
 
+
+###### Q4 #####
+print('Q4: k-NEAREST NEIGHBORS')
+
+percent = 0.8
+(x_train,y_train,x_test,y_test) = select_data(x,y,percent)
+print('For 80/20 split')
+k_choices = [1,3,5,7]
+(k,training_error) = multi_k(x_train,y_train,percent,k_choices)
+#(k,training_error) = pick_k(x_train,y_train,k_choices)
+print('Optimal k: '+str(k))
+print('Training Error: '+str(training_error))
+e = run_k(x_test,y_test,k)
+print('Testing Error: '+str(e)+'\n')
+
+
+percent = 0.6
+(x_train,y_train,x_test,y_test) = select_data(x,y,percent)
+print('For 60/40 split')
+k_choices = [1,3,5,7]
+(k,training_error) = multi_k(x_train,y_train,percent,k_choices)
+#(k,training_error) = pick_k(x_train,y_train,k_choices)
+print('Optimal k: '+str(k))
+print('Training Error: '+str(training_error))
+e = run_k(x_test,y_test,k)
+print('Testing Error: '+str(e)+'\n')
 
