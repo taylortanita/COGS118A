@@ -19,6 +19,14 @@ if (D==400):
   print('Optimal D: default')
 else:
   print('Optimal D: '+str(D))
+print('Validation Error: '+str(training_error))
+
+clf = tree.DecisionTreeClassifier(max_depth=D)
+if (D == 400):
+  clf = tree.DecisionTreeClassifier()
+clf.fit(x_train,y_train)
+predict = clf.predict(x_train)
+training_error = test(predict,y_train)
 print('Training Error: '+str(training_error))
 
 # Testing
@@ -43,6 +51,14 @@ if (D==400):
   print('Optimal D: default')
 else:
   print('Optimal D: '+str(D))
+print('Validation Error: '+str(training_error))
+
+clf = tree.DecisionTreeClassifier(max_depth=D)
+if (D == 400):
+  clf = tree.DecisionTreeClassifier()
+clf.fit(x_train,y_train)
+predict = clf.predict(x_train)
+training_error = test(predict,y_train)
 print('Training Error: '+str(training_error))
 
 # Testing
@@ -63,9 +79,10 @@ percent = 0.8
 print('For 80/20 split')
 k_choices = [1,3,5,7]
 (k,training_error) = multi_k(x_train,y_train,percent,k_choices)
-#(k,training_error) = pick_k(x_train,y_train,k_choices)
 print('Optimal k: '+str(k))
-print('Training Error: '+str(training_error))
+print('Validation Error: '+str(training_error))
+e_train = run_k(x_train,y_train,k)
+print('Training Error: '+str(e_train))
 e = run_k(x_test,y_test,k)
 print('Testing Error: '+str(e)+'\n')
 
@@ -75,9 +92,10 @@ percent = 0.6
 print('For 60/40 split')
 k_choices = [1,3,5,7]
 (k,training_error) = multi_k(x_train,y_train,percent,k_choices)
-#(k,training_error) = pick_k(x_train,y_train,k_choices)
 print('Optimal k: '+str(k))
-print('Training Error: '+str(training_error))
+print('Validation Error: '+str(training_error))
+e_train = run_k(x_train,y_train,k)
+print('Training Error: '+str(e_train))
 e = run_k(x_test,y_test,k)
 print('Testing Error: '+str(e)+'\n')
 

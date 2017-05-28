@@ -5,7 +5,7 @@ from sklearn import tree
 import copy
 import math
 
-
+#method to convert data into 0,1's
 def convert(elmt):
   if (elmt[0][0] == u'b'):
     return 1
@@ -37,7 +37,7 @@ def select_data(x,y,percent):
 
   return (x_train,y_train,x_test,y_test)
 
-# helper method for test_c
+# helper method
 # takes in two lists and returns the percent error 
 # i.e. the percentage of time where the two lists dffer
 def test(predict,y_test):
@@ -68,11 +68,12 @@ def compute_error(x,y,D):
 
   # 5-fold cross validation
   error = 0
-# use appropriate svm type
   clf = tree.DecisionTreeClassifier(max_depth=D)
+  # if 400 is indicated, it means the default D was used
   if (D == 400):
     clf = tree.DecisionTreeClassifier()
   for i in range(5):
+    # removing 1/5 of the data to test on
     X = copy.deepcopy(x_part)
     to_testx = X.pop(i)
     xx = np.concatenate((X[0],X[1]),axis=0)
@@ -119,6 +120,7 @@ def pick_D(x_train,y_train,D_choices):
 
 ###### METHODS FOR Q4 ######
 
+# computes euclidean distance
 def distance(a,b):
   d = numpy.linalg.norm(a-b)
   return d
@@ -126,25 +128,32 @@ def distance(a,b):
 # returns k nearest neighbors of target
 def get_neighbors(x_data,y_data,target,k):
   (length,_) = x_data.shape
-# distances contains tuples of (euclid norm, class)
+  # distances contains tuples of (euclid norm, class)
   distances = []
   for i in range(length):
     d = np.linalg.norm(target-x_data[i])
     distances = distances + [(d,y_data[i])]
+  # sorts distances from smallest to largest
   distances.sort(key=lambda x:x[0])
+  # number of occurances of neighbors of 0 or 1 class
   num_0 = 0
   num_1 = 0
+  # finds k nearest neighbors
   for i in range(k):
     (dis,clas) = distances[i]
     if (clas == 0):
       num_0 = num_0 + 1
     else:
       num_1 = num_1 + 1
+  
+  # return whichever neighbors were more present
   if (num_0 > num_1):
     return 0
   else:
     return 1
 
+# takes in test data and x training data and returns a list of the predicted
+# values for y
 # returns list of predicted classes
 def predict_class(x_data,y_data,x_target,k):
   (length,_) = x_target.shape
@@ -192,6 +201,7 @@ def run_k(x,y,k):
   error = error/5
   return error
 
+# method that see's which k produces least error
 def pick_k(x_train,y_train,k_choices):
   error = 1 
   k = k_choices[0]
@@ -227,7 +237,7 @@ def multi_k(x,y,percent,k_choices):
       occ[3] = occ[3]+1
       err[3] = err[3]+error
 
-  print('occ: '+str(occ))
+  print('occurances where k[1,3,5,7] are best: '+str(occ))
   i = occ.index(max(occ))
   final_error = err[i]/occ[i]
   k = 1
