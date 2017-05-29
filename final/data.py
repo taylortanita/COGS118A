@@ -253,3 +253,26 @@ team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
 
+#remove date and wins because irrelevant
+player = np.delete(player,0,1)
+player = np.delete(player,0,1)
+team = np.delete(team,0,1)
+
+print(player.shape)
+print(team.shape)
+
+#shuffle data
+data = np.concatenate((team,player),axis=1)
+np.random.shuffle(data)
+
+# get win/losses
+wins = data[:,[0]]
+
+# separate back
+team = data[:,:20]
+player = data[:,20:]
+
+
+# remove date- not important metric
+# remove wins/losses
+team = np.delete(team,0,1)
