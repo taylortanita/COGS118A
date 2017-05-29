@@ -21,6 +21,11 @@ team = data['team']
 player = data['player']
 player = np.delete(player,21,1)
 team = remove_games(team,player)
+playoff_team = data['team']
+playoff_player = data['player']
+playoff_player = np.delete(playoff_player,21,1)
+playoff_team = remove_games(playoff_team,playoff_player)
+
 
 data = sio.loadmat('nuggets.mat')
 team1 = data['team']
@@ -37,13 +42,26 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
+data = sio.loadmat('pacers.mat')
 team1 = data['team']
 player1 = data['player']
 player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('jazz.mat')
 team1 = data['team']
@@ -52,6 +70,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('raptors.mat')
 team1 = data['team']
@@ -60,6 +84,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('spurs.mat')
 team1 = data['team']
@@ -68,6 +98,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('kings.mat')
 team1 = data['team']
@@ -84,6 +120,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('suns.mat')
 team1 = data['team']
@@ -116,6 +158,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('knicks.mat')
 team1 = data['team']
@@ -148,6 +196,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('heat.mat')
 team1 = data['team']
@@ -164,6 +218,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('lakers.mat')
 team1 = data['team']
@@ -180,6 +240,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('rockets.mat')
 team1 = data['team']
@@ -188,6 +254,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('pistons.mat')
 team1 = data['team']
@@ -212,6 +284,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('bulls.mat')
 team1 = data['team']
@@ -220,6 +298,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('hornets.mat')
 team1 = data['team']
@@ -244,6 +328,12 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 data = sio.loadmat('celtics.mat')
 team1 = data['team']
@@ -252,27 +342,43 @@ player1 = np.delete(player1,21,1)
 team1 = remove_games(team1,player1)
 team = np.concatenate((team,team1),axis=0)
 player = np.concatenate((player,player1),axis=0)
+playoff_team1 = data['team']
+playoff_player1 = data['player']
+playoff_player1 = np.delete(playoff_player1,21,1)
+playoff_team1 = remove_games(playoff_team1,playoff_player1)
+playoff_player = np.concatenate((playoff_player,playoff_player1),axis=0)
+playoff_team = np.concatenate((playoff_team,playoff_team1),axis=0)
 
 #remove date and wins because irrelevant
 player = np.delete(player,0,1)
 player = np.delete(player,0,1)
 team = np.delete(team,0,1)
+playoff_player = np.delete(playoff_player,0,1)
+playoff_player = np.delete(playoff_player,0,1)
+playoff_team = np.delete(playoff_team,0,1)
 
 print(player.shape)
 print(team.shape)
+print(playoff_player.shape)
+print(playoff_team.shape)
 
 #shuffle data
 data = np.concatenate((team,player),axis=1)
 np.random.shuffle(data)
+playoff_data = np.concatenate((playoff_team,playoff_player),axis=1)
+np.random.shuffle(playoff_data)
 
 # get win/losses
 wins = data[:,[0]]
+playoff_wins = playoff_data[:,[0]]
 
 # separate back
 team = data[:,:20]
 player = data[:,20:]
-
+playoff_team = playoff_data[:,:20]
+playoff_player = playoff_data[:,20:]
 
 # remove date- not important metric
 # remove wins/losses
 team = np.delete(team,0,1)
+playoff_team = np.delete(playoff_team,0,1)
