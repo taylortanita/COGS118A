@@ -154,7 +154,7 @@ def trial(team,player,iso,wins,svm_type):
     (ic,i_error) = pick_C(i_train,iw_train,svm_type)
     
     print('team c: '+str(tc)+', error: '+str(t_error))    
-    print('player c: '+str(pc)+', error: '+str(p_error)+'\n')    
+    print('player c: '+str(pc)+', error: '+str(p_error))    
     print('team isolated c: '+str(ic)+', error: '+str(i_error)+'\n')    
 
     if (TC.has_key(tc)):
@@ -202,7 +202,7 @@ def trial(team,player,iso,wins,svm_type):
     if (IE.has_key(ic)):
       IE[ic] = IE[ic]+i_error 
     else:
-      IE[pc] = i_error
+      IE[ic] = i_error
  
   team_C = max(TC.iteritems(), key=operator.itemgetter(1))[0]
   player_C = max(PC.iteritems(), key=operator.itemgetter(1))[0]
@@ -212,14 +212,16 @@ def trial(team,player,iso,wins,svm_type):
   iso_error = IE[iso_C]
   team_error = team_error/TC[team_C]
   player_error = player_error/PC[player_C]  
-  iso_error = iso_error/IC[sio_C]  
+  iso_error = iso_error/IC[iso_C]  
   print('\n')
   print(TC)
   print(TE)
   print(PC)
   print(PE)
+  print(IC)
+  print(IE)
   print('\n')
-  return (team_C,team_error,player_C,player_error)
+  return (team_C,team_error,player_C,player_error,iso_C,iso_error)
 
 
 
