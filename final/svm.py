@@ -213,12 +213,23 @@ def trial(team,player,iso,wins,svm_type):
   team_error = team_error/TC[team_C]
   player_error = player_error/PC[player_C]  
   iso_error = iso_error/IC[iso_C]  
+  print('team error total: '+str(TE[team_C])+', num occ: '+str(TC[team_C]))
+  print('player error total: '+str(PE[player_C])+', num occ: '+str(PC[player_C]))
+  print('player error total: '+str(IE[iso_C])+', num occ: '+str(IC[iso_C]))
   print('\n')
+  print('Team')
   print(TC)
+  print('\n')
   print(TE)
+  print('\n')
+  print('Player')
   print(PC)
+  print('\n')
   print(PE)
+  print('\n')
+  print('Team Isolated')
   print(IC)
+  print('\n')
   print(IE)
   print('\n')
   return (team_C,team_error,player_C,player_error,iso_C,iso_error)
