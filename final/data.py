@@ -93,6 +93,7 @@ playoff_teams = playoff_teams+['spurs.mat','trailblazers.mat','thunder.mat','buc
 playoff_teams = playoff_teams+['grizzlies.mat','clippers.mat','rockets.mat']
 playoff_teams = playoff_teams+['cavaliers.mat','bulls.mat','hawks.mat','celtics.mat']
 
+# loads all data from each team's file
 for i in range(29):
   data = sio.loadmat(teams[i])
   team1 = data['team']
@@ -101,7 +102,8 @@ for i in range(29):
   team1 = remove_games(team1,player1)
   team = np.concatenate((team,team1),axis=0)
   player = np.concatenate((player,player1),axis=0)
-
+  
+  # if team made playoffs, add to playoff data
   if (teams[i] in playoff_teams):
     playoff_team1 = data['team']
     playoff_player1 = data['player']
@@ -119,16 +121,31 @@ def remove_inf(x):
     return x
 
 # isolating data
+# for team-isolated data, need to calculate field goal, free throw, and 3-point
+# field goal percentage manually
+
+# team-isolate statistics are team statistics minus the best player statistics
+# need to incrementally build dataset- takes the columns until field goal
+# percentage is needed to be calculated, calculate percentage and then continue
+# adding data until another percentage is needed to be calculated
+
+# obtain data before field goal percentage
 team_iso = team[:,0:2]
 temp = np.subtract(team[:,2:6],player[:,2:6])
 team_iso = np.concatenate((team_iso,temp),axis=1)
 team_iso = team_iso[:,1:]
+
+# calculating field goal percentage
 fg = np.divide(team_iso[:,3],team_iso[:,4])
 (length,) = fg.shape
 fg = np.reshape(fg,(length,1))
+
+# can't divide by 0
 fg = np.apply_along_axis(remove_inf,1,fg)
 if(float("inf") in fg):
   print('infinite value in fg team iso')
+
+# obtain data up to three point field goal percentage
 team_iso = np.concatenate((team_iso,fg),axis=1)
 temp = np.subtract(team[:,7:9],player[:,7:9])
 team_iso = np.concatenate((team_iso,temp),axis=1)
@@ -138,6 +155,8 @@ tg = np.reshape(tg,(length,1))
 tg = np.apply_along_axis(remove_inf,1,tg)
 if(float("inf") in tg):
   print('infinite value in tg team iso')
+
+# obtain data up to free throw percentage
 team_iso = np.concatenate((team_iso,tg),axis=1)
 temp = np.subtract(team[:,10:12],player[:,10:12])
 team_iso = np.concatenate((team_iso,temp),axis=1)
@@ -148,9 +167,12 @@ ft = np.apply_along_axis(remove_inf,1,ft)
 if(float("inf") in ft):
   print('infinite value in ft team iso')
 team_iso = np.concatenate((team_iso,ft),axis=1)
+
+# obtain rest of data
 temp = np.subtract(team[:,13:21],player[:,13:21])
 team_iso = np.concatenate((team_iso,temp),axis=1)
 
+# same for playoff data
 pteam_iso = playoff_team[:,0:2]
 temp = np.subtract(playoff_team[:,2:6],playoff_player[:,2:6])
 pteam_iso = np.concatenate((pteam_iso,temp),axis=1)

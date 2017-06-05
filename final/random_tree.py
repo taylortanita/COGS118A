@@ -44,7 +44,6 @@ def pick_estimator(x_train,y_train,e_choices):
   iterate = len(e_choices)
   for i in range(iterate):
     e = run_cross(x_train,y_train,e_choices[i])
-#    print('k = '+str(k_choices[i])+', error: '+str(e))
     if (e < error):
       error = e
       estimator = e_choices[i]
@@ -52,6 +51,8 @@ def pick_estimator(x_train,y_train,e_choices):
 
 # shuffling data and running many times
 def multi_e(x,y):
+  # lists hold how many times the number of estimators was picked as optimal and
+  # sum of the error with those associated number of estimators
   occ = [0,0,0,0]
   err = [0,0,0,0,0.0,0.0]
   e_choices = [16,32,64,128]
@@ -73,6 +74,7 @@ def multi_e(x,y):
       err[3] = err[3]+error
 
   print('occurances where estimators[16,32,64,128] are best: '+str(occ))
+  # get most occuring parameter
   i = occ.index(max(occ))
   final_error = err[i]/occ[i]
   estimator = 16
@@ -88,10 +90,12 @@ def multi_e(x,y):
 # running random forest
 def run_random(t,p,ti,w):
   percent = 0.8
+  # shuffles data
   (t_train,tw_train,t_test,tw_test) = select_data(t,w,percent)
   (p_train,pw_train,p_test,pw_test) = select_data(p,w,percent)
   (ti_train,tiw_train,ti_test,tiw_test) = select_data(ti,w,percent)
 
+  # pick best number of estimators
   print('\nTeam')
   (te,t_train_error) = multi_e(t_train,tw_train)
   print('Player')
@@ -99,6 +103,7 @@ def run_random(t,p,ti,w):
   print('Team Isolated')
   (tie,ti_train_error) = multi_e(ti_train,tiw_train)
 
+  # obtain testing error using parameter obtained
   t_neighbors = RandomForestClassifier(n_estimators=te)
   t_neighbors.fit(t_train,tw_train.ravel())
   t_predict = t_neighbors.predict(t_test)

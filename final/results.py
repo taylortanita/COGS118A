@@ -3,11 +3,12 @@ from decision import *
 from knn import *
 from random_tree import *
 
+# shuffles data so that teams are not clustered together
 (t,p,ti,w) = shuffle(team,player,team_iso)
 (pt,pp,pti,pw) = shuffle(playoff_team,playoff_player,pteam_iso)
 
 
-## SVM ###
+## SVM ##
 print('SVM')
 print('all team with linear kernal')
 (team_C,team_error,player_C,player_error,iso_C,iso_error) = trial(t,p,ti,w,1)
@@ -74,10 +75,10 @@ print('player numer of trees: '+str(player_E)+', error: '+str(player_error))
 print('team isolated number of trees: '+str(iso_E)+', error: '+str(iso_error))
 
 print('\nplayoff teams')
-(pteam_K,pteam_error,pplayer_K,pplayer_error,piso_K,piso_error) = run_knn(pt,pp,pti,pw)
-print('team K: '+str(pteam_K)+', error: '+str(pteam_error))
-print('player K: '+str(pplayer_K)+', error: '+str(pplayer_error))
-print('team isolated K: '+str(piso_K)+', error: '+str(piso_error))
+(pteam_E,pteam_error,pplayer_E,pplayer_error,piso_E,piso_error) = run_random(pt,pp,pti,pw)
+print('team number of trees: '+str(pteam_E)+', error: '+str(pteam_error))
+print('player number of trees: '+str(pplayer_E)+', error: '+str(pplayer_error))
+print('team isolated number of trees: '+str(piso_E)+', error: '+str(piso_error))
 
 
 

@@ -1,19 +1,27 @@
 from data import *
 from sklearn import tree
 
-# 
+# method that returns four matrices- two data matrices that contain either all
+# the of the rows where the field goal percentage was below average or above
+# (and including average), and two answer columns that contain the corresponding
+# answers for the two data matrices.
+# this method serves as the first split for the decision tree
 def divide_fg(x,y):
   x = np.concatenate((x,y),axis=1)
+  # isolate field goal percentage and calculate average
   fg_percent = x[:,4]
   avg = np.average(fg_percent)
   (row,col) = x.shape
   above = copy.deepcopy(x)
   below = copy.deepcopy(x)
+  # create matrix for above and below matrices
   for i in range(row):
     if (fg_percent[i] < avg):
       above = np.concatenate((above,x[i].reshape(1,col)),axis=0)
     else:
       below = np.concatenate((below,x[i].reshape(1,col)),axis=0)
+  # format data and remove field goal percentage from the data because it has
+	# already been used for the first split
   above = above[row:,:]
   above = np.delete(above,4,1)
   below = below[row:,:]
@@ -25,9 +33,10 @@ def divide_fg(x,y):
   return (above,above_y,below,below_y)
 
 
+# method that uses the divide_fg to predict the data. 
 def predict_val(x,y,x_test,y_test,D):
   (a,ay,b,by) = divide_fg(x_test,y_test)
-
+  # run the decision tree separately and predic the data
   (above,above_y,below,below_y) = divide_fg(x,y)
   clf1 = tree.DecisionTreeClassifier()
   if (D != (-1)):
@@ -50,7 +59,10 @@ def predict_val(x,y,x_test,y_test,D):
   error = (a_error + b_error)/(a_rows + b_rows)
   return error
 
+
+# picks which D is best.  Uses appropriate tree type- built in or manual
 def decision(x,y,tree_type):
+  # shuffles data
   (x_train,y_train,x_test,y_test) = select_data(x,y,.8)
   D_choices = [1,2,4,8,16,32,64,128,256,512,1024,-1]
   (D,training_error) = pick_D(x_train,y_train,D_choices,tree_type)
@@ -86,10 +98,10 @@ def compute_error(x,y,D,tree_type):
   x_part[0] = np.concatenate((x_part[0],x[:mod]),axis=0)
   y_part[0] = np.concatenate((y_part[0],y[:mod]),axis=0)
 
-  # 5-fold cross validation
+  # 10-fold cross validation
   error = 0 
   clf = tree.DecisionTreeClassifier(max_depth=D)
-  # if 400 is indicated, it means the default D was used
+  # if -1 is indicated, it means the default D was used
   if (D == (-1)):
     clf = tree.DecisionTreeClassifier()
   for i in range(10):
@@ -111,7 +123,6 @@ def compute_error(x,y,D,tree_type):
       e = test(predict,to_testy)
     error = error + e 
   error = error/5
-#  print('error = '+str(error))
   return error
 
 # runs cross validation multiple times 

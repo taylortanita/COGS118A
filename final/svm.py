@@ -74,7 +74,7 @@ def binary(c1,c2,x,y,svm_type):
 
 
 # method to pick the best C
-# tries 4 different C values 
+# tries 6 different C values 
 # returns the best C value and the error associated with it
 def pick_C(x,y,svm_type):
 # test the different C values
@@ -139,16 +139,23 @@ def min_func((error,c)):
 # shuffles data and runs multiple times
 # reports testing error
 def trial(team,player,iso,wins,svm_type):
+  # dictionaries- keys are the C-parameter that is determined to be the best.
+  # values in _C dictionaries hold the number of occurances of that specific C
+  # values in _E dictionaries hold the sum of errors assocaited with that C
   TC = {}
   TE = {} 
   PC = {}
   PE = {} 
   IC = {}
   IE = {} 
+  
+  #find C 10 times
   for i in range(10):
+    # shuffles data
     (t_train,tw_train,t_test,tw_test) = select_data(team,wins,.8)
     (p_train,pw_train,p_test,pw_test) = select_data(player,wins,.8)
     (i_train,iw_train,i_test,iw_test) = select_data(iso,wins,.8)
+    # picks associated C
     (tc,t_error) = pick_C(t_train,tw_train,svm_type)
     (pc,p_error) = pick_C(p_train,pw_train,svm_type)
     (ic,i_error) = pick_C(i_train,iw_train,svm_type)
@@ -157,6 +164,8 @@ def trial(team,player,iso,wins,svm_type):
     print('player c: '+str(pc)+', error: '+str(p_error))    
     print('team isolated c: '+str(ic)+', error: '+str(i_error)+'\n')    
 
+    # if C parameter has occured already, add to the occurance.  if not, add
+    # that as a key
     if (TC.has_key(tc)):
       TC[tc] = TC[tc]+1 
     else:
@@ -170,6 +179,7 @@ def trial(team,player,iso,wins,svm_type):
     else:
       IC[ic] = 1
     
+    # Run SVM and find error with C parameter obtained
     team_clf = svm.LinearSVC(C=tc)
     if (svm_type == 0):
       team_clf = svm.SVC(C=tc)
@@ -204,9 +214,11 @@ def trial(team,player,iso,wins,svm_type):
     else:
       IE[ic] = i_error
  
+  # get most occuring C
   team_C = max(TC.iteritems(), key=operator.itemgetter(1))[0]
   player_C = max(PC.iteritems(), key=operator.itemgetter(1))[0]
   iso_C = max(IC.iteritems(), key=operator.itemgetter(1))[0]
+  # calculating error
   team_error = TE[team_C]
   player_error = PE[player_C]
   iso_error = IE[iso_C]
@@ -233,26 +245,6 @@ def trial(team,player,iso,wins,svm_type):
   print(IE)
   print('\n')
   return (team_C,team_error,player_C,player_error,iso_C,iso_error)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

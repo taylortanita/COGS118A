@@ -44,7 +44,6 @@ def pick_k(x_train,y_train,k_choices):
   iterate = len(k_choices)
   for i in range(iterate):
     e = run_k(x_train,y_train,k_choices[i])
-#    print('k = '+str(k_choices[i])+', error: '+str(e))
     if (e < error):
       error = e
       k = k_choices[i]
@@ -53,10 +52,12 @@ def pick_k(x_train,y_train,k_choices):
 
 # shuffling data and running many times
 def multi_k(x,y):
+  # the lists hold how many times an k is used and the sum of the errors
   occ = [0,0,0,0]
   err = [0.0,0.0,0.0,0.0]
   k_choices = [1,3,5,7]
 
+  # run 30 times
   for i in range(30):
     (k,error) = pick_k(x,y,k_choices)
 
@@ -73,8 +74,10 @@ def multi_k(x,y):
       occ[3] = occ[3]+1
       err[3] = err[3]+error
 
+  # get most occuring k
   print('occurances where k[1,3,5,7] are best: '+str(occ))
   i = occ.index(max(occ))
+  # average error with most frequently occuring k
   final_error = err[i]/occ[i]
   k = 1
   if(i==1):
@@ -86,17 +89,21 @@ def multi_k(x,y):
   return(k,final_error)
 
 
-# running k nearest
+# running k nearest neighbors.  reports appropriate k parameter and error for
+# all datasets (player, team, team-isolated)
 def run_knn(t,p,ti,w):
   percent = 0.8 
+  # shuffles data
   (t_train,tw_train,t_test,tw_test) = select_data(t,w,percent)
   (p_train,pw_train,p_test,pw_test) = select_data(p,w,percent)
   (ti_train,tiw_train,ti_test,tiw_test) = select_data(ti,w,percent)
   
+  # picks appropriate k
   (tk,t_train_error) = multi_k(t_train,tw_train)
   (pk,p_train_error) = multi_k(p_train,pw_train)
   (tik,ti_train_error) = multi_k(ti_train,tiw_train)
  
+  # obtain test error
   t_neighbors = KNeighborsClassifier(n_neighbors=tk)
   t_neighbors.fit(t_train,tw_train.ravel())
   t_predict = t_neighbors.predict(t_test)
